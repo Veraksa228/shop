@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>shop</title>
+</head>
+<body>
+<h1>Hi ( ur name)</h1>
+<form action="/price" method="post">
+    <p><select multiple name="food">
+        <optgroup label="russian ">
+            <option name="vodka" value="3">vodka 3$</option>
+            <option name = "lobster" value="5">lobster 5$</option>
+        </optgroup>
+        <optgroup label="ukrain">
+            <option name="beer" value="2">beer 2$</option>
+            <option name = "wine" value="1">wine 1$</option>
+        </optgroup>
+    </select></p>
+    <input type="hidden" name="num_selections" value="0">
+    <script>
+    const selectElement = document.querySelector("select");
+    selectElement.addEventListener("change", function() {
+      const numSelections = this.selectedOptions.length;
+      document.querySelector("input[name=num_selections]").value = numSelections;
+
+});
+
+  </script>
+    <p><input type="submit" value="give me "></p>
+
+</form>
+
+
+</body>
+</html>
