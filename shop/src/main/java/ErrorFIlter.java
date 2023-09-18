@@ -6,18 +6,36 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Objects;
 
-@WebFilter (filterName = "CheckBoxFromWelcome",
-urlPatterns = {"/shop"})
+@WebFilter (urlPatterns = {"/shop"})
 public class ErrorFIlter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
-        String TermOfuse = req.getParameter("TermOfUse");
-        if("on".equals(TermOfuse)){
-            chain.doFilter(request,response);
-        } else {
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Error");
-            requestDispatcher.forward(request,response);
+
+
+        if(req.getSession().getAttribute("on") == null){
+            if(req.getParameter("TermOfUse") != null ){
+                req.getSession().setAttribute("on",req.getParameter("TermOfUse"));
+            } else {
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("Error");
+                requestDispatcher.forward(request,response);
+            }
+
         }
+        chain.doFilter(request,response);
+    }
+
+    public ErrorFIlter() {
+        super();
+    }
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+
+    }
+
+    @Override
+    public void destroy() {
+
     }
 }
